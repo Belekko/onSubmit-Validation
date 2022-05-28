@@ -12,7 +12,6 @@ const SimpleInput = (props) => {
       setFormIsValid(false);
     }
   }, [enteredNameIsValid]);
-
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
   };
