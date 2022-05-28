@@ -20,41 +20,39 @@ const BasicForm = (props) => {
     setIsLastNameTouched(true);
     setIsEmailTouched(true);
 
-    let firstNameValue = firstNameRef.current.value;
-    let lastNameValue = lastNameRef.current.value;
-    let emailValue = emailRef.current.value;
-
-    if (firstNameValue.trim() !== "") {
+    if (firstNameRef.current.value.trim() !== "") {
       setIsFirstNameValid(true);
     }
 
-    if (lastNameValue.trim() !== "") {
+    if (lastNameRef.current.value.trim() !== "") {
       setIsLastNameValid(true);
     }
 
-    if (emailValue.trim() !== "") {
+    if (emailRef.current.value.includes("@")) {
       setIsEmailValid(true);
+      console.log("first");
     }
 
     const isFormInvalid =
-      firstNameValue.trim() === "" ||
-      lastNameValue.trim() === "" ||
-      emailValue.trim() === "";
+      firstNameRef.current.value.trim() === "" ||
+      lastNameRef.current.value.trim() === "" ||
+      emailRef.current.value.trim() === "" ||
+      !emailRef.current.value.includes("@");
+
 
     if (isFormInvalid) {
       return;
     }
-    console.log("first");
 
-    firstNameValue = "";
+    firstNameRef.current.value = "";
     setIsFirstNameTouched(false);
     setIsFirstNameValid(false);
 
-    lastNameValue = "";
+    lastNameRef.current.value = "";
     setIsLastNameTouched(false);
     setIsLastNameValid(false);
 
-    emailValue = "";
+    emailRef.current.value = "";
     setIsEmailTouched(false);
     setIsEmailValid(false);
   };
