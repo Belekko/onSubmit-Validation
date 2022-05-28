@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 
 const BasicForm = (props) => {
+  const [isFirstNameValid, setIsFirstNameValid] = useState(false);
+  const [isFirstNameTouched, setIsFirstNameTouched] = useState(false);
+  const firstNameRef = useRef("");
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setIsFirstNameTouched(true);
+    const isFirstNameValueValid = firstNameRef.current.value.trim() !== "";
+    if (isFirstNameValueValid) {
+      setIsFirstNameValid(true);
+    }
+  };
+
+  const firstNameClasses =
+    isFirstNameValid && isFirstNameTouched
+      ? "form-control"
+      : "form-control invalid";
+
+  const isFormValid = !isFirstNameValid;
+
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <div className="control-group">
-        <div className="form-control">
+        <div className={firstNameClasses}>
           <label htmlFor="name">First Name</label>
-          <input type="text" id="name" />
+          <input ref={firstNameRef} type="text" id="name" />
         </div>
         <div className="form-control">
           <label htmlFor="name">Last Name</label>
@@ -18,7 +37,9 @@ const BasicForm = (props) => {
         <input type="text" id="name" />
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button type="submit" disabled={!isFormValid}>
+          Submit
+        </button>
       </div>
     </form>
   );
