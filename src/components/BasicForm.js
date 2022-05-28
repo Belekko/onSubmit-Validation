@@ -1,12 +1,31 @@
 import React, { useRef } from "react";
 
 const BasicForm = (props) => {
+  const firstName = useRef("");
+  let firstNameisValid = false;
+  let firstNameisTouched = false;
+
+  const firstNameBlurHandler = (e) => {
+    firstNameisTouched = true;
+  };
+  console.log(firstName.current)
+  firstNameisValid = firstName.current.trim() !== "";
+  const firstNameIsInvalid = firstNameisValid === "" && !firstNameisTouched;
+  const firstNameClasses = firstNameIsInvalid
+    ? "form-control"
+    : "form-contol invalid";
+
   return (
     <form>
       <div className="control-group">
-        <div className="form-control">
+        <div className={firstNameClasses}>
           <label htmlFor="first-name">First Name</label>
-          <input type="text" id="first-name" />
+          <input
+            ref={firstName}
+            type="text"
+            id="first-name"
+            onBlur={firstNameBlurHandler}
+          />
         </div>
         <div className="form-control">
           <label htmlFor="last-name">Last Name</label>
